@@ -5,20 +5,28 @@
 ; any live cell with more than 3 live neighbours dies, as if by overcrowding
 ; any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction
 
-; http://www.wikihow.com/Make-the-Conway%27s-Game-of-Life-Cellular-Automaton
+; count live neighbours
+; count dead neighbours
+; use sets?
 (def world [[2 1 2] [1 1 2] [2 1 1]])
 
+(defn live-neighbours
+  [outer-index index cell world]
+   (let [max-x (.length world) max-y (.length (first world))]
+      max-y))
+
+(defn change
+  [outer-index index cell world]
+    (live-neighbours outer-index index cell world))
+
 (defn turn
-  [row]
-    row)
+  [index cell world]
+    (map #(change index %1 %2 world) (iterate inc 0) cell))
 
 (defn live
-  []
-    (for [cell world] (turn cell)))
+  [world]
+    (vec (map #(turn %1 %2 world) (iterate inc 0) world)))
 
 (defn -main
   [& args]
-    (live))
-
-; count live neighbours
-; count dead neighbours
+    (live world))
