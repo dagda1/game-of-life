@@ -6,14 +6,23 @@
 ; any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction
 
 ; count live neighbours
-; count dead neighbours
 ; use sets?
+; https://github.com/bbatsov/clojure-style-guide
+; http://clojure.org/cheatsheet
 (def world [[2 1 2] [1 1 2] [2 1 1]])
+
+(def compass-points [[0 1][1 1][1 0][-1 -1][0 -1][-1 1][1 0][-1 0]])
+
 
 (defn live-neighbours
   [outer-index index cell world]
-   (let [max-x (.length world) max-y (.length (first world))]
-      max-y))
+    (map (fn[[x y]]
+            (let [cord-x (+ outer-index x)
+                  cord-y (+ index y)
+                  next-cell (get-in world [cord-x cord-y])]
+                  (if next-cell
+                    (if (= next-cell 2) 1 0)
+                    0))) world))
 
 (defn change
   [outer-index index cell world]
