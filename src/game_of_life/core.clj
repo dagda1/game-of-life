@@ -13,16 +13,15 @@
 
 (def compass-points [[0 1][1 1][1 0][-1 -1][0 -1][-1 1][1 0][-1 0]])
 
-
 (defn live-neighbours
   [outer-index index cell world]
-    (map (fn[[x y]]
+    (reduce + (map (fn[[x y]]
             (let [cord-x (+ outer-index x)
                   cord-y (+ index y)
                   next-cell (get-in world [cord-x cord-y])]
                   (if next-cell
                     (if (= next-cell 2) 1 0)
-                    0))) world))
+                    0))) compass-points)))
 
 (defn change
   [outer-index index cell world]
