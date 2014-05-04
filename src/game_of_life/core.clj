@@ -6,12 +6,11 @@
 ; any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction
 
 ; count live neighbours
-; use sets?
 ; https://github.com/bbatsov/clojure-style-guide
 ; http://clojure.org/cheatsheet
 (def world [[2 1 2] [1 1 2] [2 1 1]])
 
-(def compass-points [[0 1][1 1][1 0][-1 -1][0 -1][-1 1][1 0][-1 0]])
+(def compass-points [[0 1][1 1][1 0][1 -1][0 -1][-1 1][-1 0][-1 -1]])
 
 (defn live-neighbours
   [outer-index index cell world]
