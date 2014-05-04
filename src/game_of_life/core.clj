@@ -24,7 +24,13 @@
 
 (defn change
   [outer-index index cell world]
-    (live-neighbours outer-index index cell world))
+    (let [live-count (live-neighbours outer-index index cell world)]
+      (cond
+        (< live-count 2) 1
+        (or (= live-count 2) (= live-count 3)) 2
+        (and (= cell 2) (> live-count 3)) 1
+        (and (= cell 2) (= live-count 3)) 2
+        :else 1)))
 
 (defn turn
   [index cell world]
