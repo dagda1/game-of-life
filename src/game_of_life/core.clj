@@ -34,11 +34,11 @@
 
 (defn turn
   [index cell world]
-    (map #(change index %1 %2 world) (iterate inc 0) cell))
+    (mapv #(change index %1 %2 world) (range) cell))
 
 (defn live
   [world]
-    (vec (map #(turn %1 %2 world) (iterate inc 0) world)))
+    (mapv #(turn %1 %2 world) (range) world))
 
 (defn -main
   [& args]
